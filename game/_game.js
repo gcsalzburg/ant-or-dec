@@ -27,7 +27,7 @@ function start_game() {
     // Populate initial ant+decs
     el_images.innerHTML = '';
     antdecs = [];
-    for(var i=0; i<20; i++){
+    for(var i=0; i<5; i++){
         add_antdec();
     }
 
@@ -71,6 +71,10 @@ function game_loop() {
 // Next image
 function next_image(){
     antdecs[score.current].remove();
+    addClass(document.body,"bg_flash");
+    setTimeout(function(){
+        removeClass(document.body,"bg_flash");
+    },150);
 
     var extra_points = Math.round( (score.max_time - (performance.now() - antdecs[score.current].get_start_time())) / 10);
     score.points += extra_points; // to avoid subtracting points from a rounding error 
@@ -79,6 +83,9 @@ function next_image(){
     score.current++;
     antdecs[score.current].start_timer();
     score.played++;
+
+    // Add new one to stack
+    add_antdec();
 }
 
 // Game over

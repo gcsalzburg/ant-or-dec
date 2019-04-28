@@ -1,5 +1,6 @@
 html{
     height: 100%;
+    overflow: hidden;
 }
 body{
     height: 100%;
@@ -9,6 +10,17 @@ body{
     overflow: hidden;
     margin: 0;
     padding: 0;
+}
+
+@keyframes bg_flash_ani {
+    0% {  background-color: #53ff47; }
+    100% { background-color: #475cff; }
+}
+.bg_flash{
+    animation-name: bg_flash_ani;
+    animation-duration: 150ms;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;  
 }
 
 body.game_over{
