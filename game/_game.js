@@ -109,7 +109,12 @@ function game_over(){
     score.playing = false;
 
     addClass(document.body,"game_over");
-    el_actual_who.innerHTML = antdecs[score.current].get_correct_name();
+    el_final_score.innerHTML = score.points;
+    if(antdecs[score.current].was_guessed()){
+        el_actual_who.innerHTML = "that was " + antdecs[score.current].get_correct_name();
+    }else{
+        el_actual_who.innerHTML = "too slow";
+    }
     
 }
 
@@ -232,6 +237,9 @@ class AntDec{
 
     is_correct(){
         return this._was_correct;
+    }
+    was_guessed(){
+        return (this._guess > 0) ? true : false;
     }
 
     add(container){
