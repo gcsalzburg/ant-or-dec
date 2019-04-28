@@ -4,15 +4,18 @@ function loaded() {
     // Show play button?
 }
 
-var el_images      = document.getElementById('images');
-var el_timing_bar  = document.getElementById('timing_bar');
-var el_score       = document.getElementById('my_score');
-var el_final_score = document.getElementById('final_score');
+var el_images       = document.getElementById('images');
+var el_timing_bar   = document.getElementById('timing_bar');
+var el_score_adds   = document.getElementById('score_additions');
+var el_score        = document.getElementById('my_score');
+var el_final_score  = document.getElementById('final_score');
+var el_actual_who   = document.getElementById('actual_who');
+
 
 // Score details
 var antdecs = [];
 var score = {
-    max_time: 2000,
+    max_time: 1500,
 
     played: 0,
     current: 0,
@@ -40,6 +43,7 @@ function start_game() {
     removeClass(document.body,"game_over");
     removeClass(document.body,"loaded");
     el_score.innerHTML = score.points;
+    el_score_adds.innerHTML = '';
 
     // Start game loop
     score.playing = true;
@@ -70,16 +74,28 @@ function game_loop() {
 
 // Next image
 function next_image(){
+
+    // Update HTML display effects
     antdecs[score.current].remove();
     addClass(document.body,"bg_flash");
     setTimeout(function(){
         removeClass(document.body,"bg_flash");
     },150);
 
+    // Add extra points to score
     var extra_points = Math.round( (score.max_time - (performance.now() - antdecs[score.current].get_start_time())) / 10);
     score.points += extra_points; // to avoid subtracting points from a rounding error 
     el_score.innerHTML = score.points;
 
+    // Add marker to show extra points
+    var new_score_plus = document.createElement('div');
+    new_score_plus.style['margin-left'] = (Math.random()*150 - 75) + 'px';
+    new_score_plus.style.top = (Math.random()*30) + 'px';
+    new_score_plus.innerHTML = "+" + extra_points;
+    addClass(new_score_plus, 'new_score');
+    el_score_adds.appendChild(new_score_plus); 
+
+    // Load in next ant/dec and increment position counter
     score.current++;
     antdecs[score.current].start_timer();
     score.played++;
@@ -93,7 +109,8 @@ function game_over(){
     score.playing = false;
 
     addClass(document.body,"game_over");
-    el_final_score.innerHTML = score.points;
+    el_actual_who.innerHTML = antdecs[score.current].get_correct_name();
+    
 }
 
 // Add new antdec to stack
@@ -202,6 +219,15 @@ class AntDec{
     }
     get_start_time(){
         return this._start_time;
+    }
+    get_correct_name(){
+        if(this._answer == 1){
+            return "Ant";
+        }else if(this._answer == 2){
+            return "Dec";
+        }else{
+            return "???";
+        }
     }
 
     is_correct(){
