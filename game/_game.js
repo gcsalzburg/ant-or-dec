@@ -1,18 +1,51 @@
 
-// Cross-browser support for requestAnimationFrame
-const w = window;
-const requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
-
 // Game assets have loaded
 function loaded() {
+    // Show play button?
+}
+
+var el_images      = document.getElementById('images');
+var el_timing_bar  = document.getElementById('timing_bar');
+var el_score       = document.getElementById('my_score');
+var el_final_score = document.getElementById('final_score');
+
+// Score details
+var antdecs = [];
+var score = {
+    max_time: 2000,
+
+    played: 0,
+    current: 0,
+    points: 0,
+
+    playing: false
+};
+
+// Start game
+function start_game() {
 
     // Populate initial ant+decs
+    el_images.innerHTML = '';
+    antdecs = [];
     for(var i=0; i<20; i++){
         add_antdec();
     }
 
+    // Reset scores
+    score.played = 0;
+    score.current = 0;
+    score.points = 0;
+    
+    // Reset HTML
+    removeClass(document.body,"game_over");
+    removeClass(document.body,"loaded");
+    el_score.innerHTML = score.points;
+
     // Start game loop
+    score.playing = true;
+    antdecs[score.current].start_timer();
     game_loop();
+
 }
 
 // Play game
@@ -20,69 +53,43 @@ function game_loop() {
 
     var time_left = performance.now() - antdecs[score.current].get_start_time(); 
 
-    console.log(time_left);
-    // Update score
-
-/*
-    document.getElementById("my_score").innerHTML = score.points + 
-        const now = performance.now();
-        const delta = (now - then)/1000; // num ms since last frame was rendered
-        const elapsed = now - game.start_time;
-        then = now;
-    */
-  
+    if(time_left > score.max_time){
+        game_over();
+    }else{
+        // Update timing bar
+        var time_perc = (time_left/score.max_time)*100;
+        el_timing_bar.style.height = time_perc+'%';
+    } 
     
     // Do this loop again ASAP
-    requestAnimationFrame(game_loop);
+    if(score.playing){
+        requestAnimationFrame(game_loop);
+    }
 }
 
-var main = function () {
-	const now = performance.now();
-    const delta = (now - then)/1000; // num ms since last frame was rendered
-    const elapsed = now - game.start_time;
-    then = now;
-
-    // Call main game loops
-	update(delta, elapsed);
-	render(delta, elapsed);
-
-    // Measure FPS performance
-    update_fps();
-
-	// Request to do this again ASAP
-	requestAnimationFrame(main);
-};
-
-
-
-// Score details
-var score = {
-    played: 0,
-    current: 0,
-    points: 0
-};
 
 // Next image
 function next_image(){
-    console.log(score.current);
     antdecs[score.current].remove();
+
+    var extra_points = Math.round( (score.max_time - (performance.now() - antdecs[score.current].get_start_time())) / 10);
+    score.points += extra_points; // to avoid subtracting points from a rounding error 
+    el_score.innerHTML = score.points;
+
     score.current++;
-
     antdecs[score.current].start_timer();
-
-    // Increment score counters
     score.played++;
-
 }
 
 // Game over
 function game_over(){
-    console.log("game over!");
+    score.playing = false;
+
+    addClass(document.body,"game_over");
+    el_final_score.innerHTML = score.points;
 }
 
 // Add new antdec to stack
-var el_images = document.getElementById('images');
-var antdecs = [];
 function add_antdec(){
     var newAntDec = new AntDec(pick_antdec());
     newAntDec.add(el_images);
@@ -90,11 +97,19 @@ function add_antdec(){
 }
 
 // UI buttons
-button_ant.addEventListener('click', function(e){
+button_start.addEventListener('touchend', function(e){
+    e.preventDefault();
+    start_game();
+});
+button_play_again.addEventListener('touchend', function(e){
+    e.preventDefault();
+    start_game();
+});
+button_ant.addEventListener('touchend', function(e){
     e.preventDefault();
     button_handle(1);
 });
-button_dec.addEventListener('click', function(e){
+button_dec.addEventListener('touchend', function(e){
     e.preventDefault();
     button_handle(2);
 });
@@ -134,21 +149,6 @@ if (document.readyState!='loading'){
     document.attachEvent('onreadystatechange', function(){
         if (document.readyState=='complete') loaded();
     });
-}
-
-// Helper functions for classList access
-function hasClass(el, className) {
-    return el.classList ? el.classList.contains(className) : new RegExp('\\b'+ className+'\\b').test(el.className);
-}
-
-function addClass(el, className) {
-    if (el.classList) el.classList.add(className);
-    else if (!hasClass(el, className)) el.className += ' ' + className;
-}
-
-function removeClass(el, className) {
-    if (el.classList) el.classList.remove(className);
-    else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
 }
 
 // /////////////////////////////////

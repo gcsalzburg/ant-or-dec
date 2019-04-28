@@ -10,20 +10,30 @@
         <link href="https://fonts.googleapis.com/css?family=Neucha" rel="stylesheet">
         <link href="assets/styles.css" rel="stylesheet">
     </head>
-    <body>
+    <body class="loaded">
         <noscript>You need to enable Javascript to play this game!</noscript>
+        <div class="timing_bar" id="timing_bar"></div>
         <main>
             <h1>ANT or DEC</h1>
             <section id="scores" class="scores">
-                <div id="my_score" class="score">8490</div>
+                <div id="my_score" class="score">0</div>
             </section>
             <section id="images" class="images"></section>
             <section id="buttons" class="buttons">
                 <a href="#ant" id="button_ant" class="button button_ant">ANT ?</a>
                 <a href="#dec" id="button_dec" class="button button_dec">DEC ?</a>
             </section>
+            <section id="start" class="start">
+                <a href="#play_start" id="button_start" class="button_start">Play game!</a>
+            </section>
+            <section id="end" class="end">
+                <h2>Game over!</h2>
+                <h2>Score: <span class="final_score" id="final_score">0</span></h2>
+                <a href="#play_again" id="button_play_again" class="button_play_again">Play again</a>
+            </section>
         </main>
 
+        <script src="game/helper.js"></script>
         <script src="game/_game.js"></script>
     </body>
 </html>

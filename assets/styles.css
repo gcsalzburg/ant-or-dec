@@ -7,13 +7,35 @@ body{
     background-color: #475cff;
     color: #ffffff;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
+
+body.game_over{
+    background-color: #ff6f47;
+}
+body.game_over .scores,     body.loaded .scores{        display: none;}
+body.game_over .images,     body.loaded .images{        display: none;}
+body.game_over .buttons,    body.loaded .buttons{       display: none;}
+body.game_over .timing_bar, body.loaded .timing_bar{    display: none;}
+body.game_over .start,      body.loaded .end{           display: none;}
+
+body.game_over .end,        body.loaded .start{         display: block;}
 
 .good_bg{
     background-color: #53ff47;
 }
 .bad_bg{
     background-color: #ff6f47;
+}
+
+.timing_bar{
+    height: 0%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.1);
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 h1{
@@ -59,15 +81,49 @@ h1{
     width: 100%;
 }
 .button{
-    background-color: #53ff47;
-    border: 5px solid #AAFFA4;
+    background-color: #ffd829;
+    border: 5px solid #FFE771;
     color: #000;
     padding: 20px 50px;
     font-size: 2em;
     font-weight: bold;
     margin-bottom: 15px;
     text-decoration: none;
+    transform:rotate(-2deg);
+}
+.button_dec{
+    transform:rotate(4deg);
 }
 .button:focus{
     background-color: #ffd829;
+}
+
+.start{
+    display: none;
+    text-align: center;
+    transform: rotate(-2deg);
+    margin-top: 200px;
+
+}
+
+.end{
+    display: none;
+    text-align: center;
+    transform: rotate(-2deg);
+    margin-top: 150px;
+}
+.end h2{
+    font-size: 3em;
+    margin: 10px 0;
+    text-shadow: 3px 3px black;
+}
+.end .button_play_again, .start .button_start{
+    display: inline-block;
+    background: #fff;
+    padding: 5px 15px;
+    font-size: 2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
 }
