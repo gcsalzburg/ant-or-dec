@@ -1,0 +1,66 @@
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    font-family: 'Neucha', cursive;
+    background-color: #475cff;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.good_bg{
+    background-color: #53ff47;
+}
+.bad_bg{
+    background-color: #ff6f47;
+}
+
+h1{
+    font-size: 4em;
+    text-align: center;
+    margin: 30px 0 15px 0;
+    padding: 0;
+    text-shadow: 5px 5px black;
+    transform: rotate(2deg);
+}
+
+.scores{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size:2.5em;
+}
+.images{
+    margin-top: 15px;
+}
+
+.images .image{
+    height: 400px;
+    width: 300px;
+    background-color: rgba(0,0,0,0.2);
+    transform: rotate(-2deg);
+    margin: 0 auto;
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.button{
+    background-color: #fff;
+    color: #000;
+    padding: 20px 50px;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-decoration: none;
+}
+.button:focus{
+    background-color: #ffd829;
+}
