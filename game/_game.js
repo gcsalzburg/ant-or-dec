@@ -1,19 +1,32 @@
 // Game assets have loaded
 function loaded() {
     play();
+
+    // Populate initial ant+decs
+    for(var i=0; i<20; i++){
+        add_antdec();
+    }
 }
 
 // Play game
 function play() {
 
-    var el_images = document.getElementById('images');
+}
 
-    
-    for(var i=0; i<num_antdecs; i++){
-        var img_index = Math.floor(Math.random()*num_antdecs);
-        var newAntDec = new AntDec(pick_antdec());
-        newAntDec.add(el_images);
-    }
+
+// Score details
+var score = {
+    played: 0,
+    points: 0
+};
+
+// Add new antdec to stack
+var el_images = document.getElementById('images');
+var antdecs = [];
+function add_antdec(){
+    var newAntDec = new AntDec(pick_antdec());
+    newAntDec.add(el_images);
+    antdecs.push(newAntDec);
 }
 
 // UI buttons
@@ -25,21 +38,26 @@ button_dec.addEventListener('click', function(e){
     e.preventDefault();
     button_handle(2);
 });
+function button_handle(antordec){
+    console.log(score.played);
+    antdecs[score.played].remove();
+    score.played++;
+}
 
 
 // Game assets
-var antdecs = ['ant1', 'ant2', 'ant3', 'ant4', 'ant5', 'dec1', 'dec2', 'dec3', 'dec4', 'dec5'];
-var num_antdecs = antdecs.length;
+var antdec_assets = ['ant1', 'ant2', 'ant3', 'ant4', 'ant5', 'dec1', 'dec2', 'dec3', 'dec4', 'dec5'];
+var num_antdec_assets = antdec_assets.length;
 
 var last_index = 0;
 function pick_antdec(){
     var img_index;
     do {
-        img_index = Math.floor(Math.random()*num_antdecs);
+        img_index = Math.floor(Math.random()*num_antdec_assets);
     } while (img_index == last_index);
 
     last_index = img_index;
-    return  antdecs[img_index];
+    return  antdec_assets[img_index];
 }
 
 
@@ -103,9 +121,9 @@ class AntDec{
     }
 
     add(container){
-        return container.appendChild(this._obj);
+        return container.insertBefore(this._obj, container.childNodes[0] || null);
     }
     remove(){
-
+        return this._obj.parentNode.removeChild(this._obj);
     }
 }
