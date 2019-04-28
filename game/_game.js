@@ -1,24 +1,84 @@
+
+// Cross-browser support for requestAnimationFrame
+const w = window;
+const requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+
 // Game assets have loaded
 function loaded() {
-    play();
 
     // Populate initial ant+decs
     for(var i=0; i<20; i++){
         add_antdec();
     }
+
+    // Start game loop
+    game_loop();
 }
 
 // Play game
-function play() {
+function game_loop() {
 
+    var time_left = performance.now() - antdecs[score.current].get_start_time(); 
+
+    console.log(time_left);
+    // Update score
+
+/*
+    document.getElementById("my_score").innerHTML = score.points + 
+        const now = performance.now();
+        const delta = (now - then)/1000; // num ms since last frame was rendered
+        const elapsed = now - game.start_time;
+        then = now;
+    */
+  
+    
+    // Do this loop again ASAP
+    requestAnimationFrame(game_loop);
 }
+
+var main = function () {
+	const now = performance.now();
+    const delta = (now - then)/1000; // num ms since last frame was rendered
+    const elapsed = now - game.start_time;
+    then = now;
+
+    // Call main game loops
+	update(delta, elapsed);
+	render(delta, elapsed);
+
+    // Measure FPS performance
+    update_fps();
+
+	// Request to do this again ASAP
+	requestAnimationFrame(main);
+};
+
 
 
 // Score details
 var score = {
     played: 0,
+    current: 0,
     points: 0
 };
+
+// Next image
+function next_image(){
+    console.log(score.current);
+    antdecs[score.current].remove();
+    score.current++;
+
+    antdecs[score.current].start_timer();
+
+    // Increment score counters
+    score.played++;
+
+}
+
+// Game over
+function game_over(){
+    console.log("game over!");
+}
 
 // Add new antdec to stack
 var el_images = document.getElementById('images');
@@ -39,9 +99,12 @@ button_dec.addEventListener('click', function(e){
     button_handle(2);
 });
 function button_handle(antordec){
-    console.log(score.played);
-    antdecs[score.played].remove();
-    score.played++;
+    antdecs[score.current].set_guess(antordec);
+    if(antdecs[score.current].is_correct()){
+        next_image();
+    }else{
+        game_over();
+    }
 }
 
 
@@ -114,10 +177,28 @@ class AntDec{
         addClass(this._obj, 'image');
 
         if(this._img.substr(0,3) == "ant"){
-            this._answer == 1;
+            this._answer = 1;
         }else if(this._img.substr(0,3) == "dec"){
-            this._answer == 2;
+            this._answer = 2;
         }
+    }
+
+    set_guess(guess){
+        this._guess = guess;
+        if(this._guess == this._answer){
+            this._was_correct = true;
+        }
+    }
+    start_timer(){
+        this._start_time = performance.now();
+        return this.get_start_time();
+    }
+    get_start_time(){
+        return this._start_time;
+    }
+
+    is_correct(){
+        return this._was_correct;
     }
 
     add(container){
