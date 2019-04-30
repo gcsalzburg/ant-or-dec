@@ -154,7 +154,11 @@ function button_handle(antordec){
 
 
 // Game assets
-var antdec_assets = ['ant1', 'ant2', 'ant3', 'ant4', 'ant5', 'dec1', 'dec2', 'dec3', 'dec4', 'dec5'];
+var antdec_assets = [];
+for(var i=1; i<=20; i++){    // number of antdecs in folder
+    antdec_assets.push('ant'+i);
+    antdec_assets.push('dec'+i);
+}
 var num_antdec_assets = antdec_assets.length;
 
 var last_index = 0;
