@@ -36,7 +36,6 @@ function add_antdec_bg(){
 var el_loading_images = document.getElementById('loading_images');
 var el_images         = document.getElementById('images');
 var el_timing_bar     = document.getElementById('timing_bar');
-var el_timing_bar_red = document.getElementById('timing_bar_overlay');
 var el_score_adds     = document.getElementById('score_additions');
 var el_score          = document.getElementById('my_score');
 var el_final_score    = document.getElementById('final_score');
@@ -99,10 +98,6 @@ function game_loop() {
 
         // Set position
         el_timing_bar.style.height = time_perc+'%';
-
-        // Set colour
-        el_timing_bar_red.style.opacity = time_perc/100;
-
     } 
     
     // Do this loop again ASAP
