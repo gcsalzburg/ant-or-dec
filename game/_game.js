@@ -72,6 +72,7 @@ function start_game() {
     score.current = 0;
     score.points = 0;
     score.curr_max_time = score.max_time;
+    num_antdecs_added = 0;
     
     // Reset HTML
     removeClass(document.body,"game_over");
@@ -79,7 +80,7 @@ function start_game() {
     el_score.innerHTML = score.points;
     el_loading_images.innerHTML = '';
     el_score_adds.innerHTML = '';
-    num_antdecs_added = 0;
+    // TODO: Remove end game ant/dec here as well
 
     // Start game loop
     score.playing = true;
