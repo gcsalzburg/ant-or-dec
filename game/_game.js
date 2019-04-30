@@ -10,15 +10,21 @@ function loaded() {
     "So behave (and have fun)! \n \n"+
     "George");
 
-    var max_w = el_loading_images.offsetWidth;
-    var max_h = el_loading_images.offsetHeight;
+    add_antdec_bg();
+}
 
-    for(var i=0; i<num_antdec_assets; i++){
-        var newAntDec = new AntDec(pick_antdec());
-        var new_img = newAntDec.add(el_loading_images);
-        new_img.style.left = ((Math.random()*max_w)-(110/2)) + 'px'; // to offset half way to the left
-        new_img.style.top = ((Math.random()*max_h)-(150/2)) + 'px'; // to offset half way to the top
-        console.log(new_img);
+var num_antdecs_added = 0;
+function add_antdec_bg(){
+    var newAntDec = new AntDec(pick_antdec());
+    var new_img = newAntDec.add(el_loading_images);
+    new_img.style.left = ((Math.random()*el_loading_images.offsetWidth)-(110/2)) + 'px'; // to offset half way to the left
+    new_img.style.top = ((Math.random()*el_loading_images.offsetHeight)-(150/2)) + 'px'; // to offset half way to the top
+    new_img.style['z-index'] = num_antdecs_added;
+
+    num_antdecs_added++;
+
+    if(!score.playing && num_antdecs_added<150){
+        setTimeout(add_antdec_bg,50+num_antdecs_added);
     }
 }
 

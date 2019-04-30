@@ -26,13 +26,14 @@ body{
 body.game_over{
     background-color: #ff6f47;
 }
-body.game_over .scores,     body.loaded .scores{        display: none;}
-body.game_over .images,     body.loaded .images{        display: none;}
-body.game_over .buttons,    body.loaded .buttons{       display: none;}
-body.game_over .timing_bar, body.loaded .timing_bar{    display: none;}
-body.game_over .start,      body.loaded .end{           display: none;}
+body.game_over .scores,         body.loaded .scores{        display: none;}
+body.game_over .loading_images, body.loaded .loading_images{display: block;}
+body.game_over .images,         body.loaded .images{        display: none;}
+body.game_over .buttons,        body.loaded .buttons{       display: none;}
+body.game_over .timing_bar,     body.loaded .timing_bar{    display: none;}
+body.game_over .start,          body.loaded .end{           display: none;}
 
-body.game_over .end,        body.loaded .start{         display: block;}
+body.game_over .end,            body.loaded .start{         display: block;}
 
 .good_bg{
     background-color: #53ff47;
@@ -90,11 +91,13 @@ h1{
 }
 
 .loading_images{
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
+    z-index:10;
 }
 
 .loading_images .image{
@@ -112,6 +115,8 @@ h1{
 .images{
     margin-top: 15px;
     position:relative;
+    z-index:30;
+    position: relative;
 }
 
 .images .image{
@@ -135,6 +140,8 @@ h1{
     bottom: 0;
     left: 0;
     width: 100%;
+    z-index:40;
+    position: relative;
 }
 .button{
     background-color: #ffd829;
@@ -159,6 +166,8 @@ h1{
     text-align: center;
     transform: rotate(-2deg);
     margin-top: 200px;
+    position: relative;
+    z-index: 50;
 
 }
 
@@ -167,6 +176,8 @@ h1{
     text-align: center;
     transform: rotate(-2deg);
     margin-top: 150px;
+    z-index:50;
+    position: relative;
 }
 .end h2{
     font-size: 2.7em;
