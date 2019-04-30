@@ -25,6 +25,7 @@ function add_antdec_bg(){
         num_antdecs_added++;
     
         if(num_antdecs_added<50){
+            new_img.style['animation'] = 'none';
             add_antdec_bg();
         }else{
             setTimeout(add_antdec_bg,1000);
@@ -46,7 +47,7 @@ var el_actual_who     = document.getElementById('actual_who');
 var antdecs = [];
 var score = {
     max_time: 1500,
-    scaler: 100,
+    scaler: 50,
 
     played: 0,
     current: 0,
