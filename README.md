@@ -8,4 +8,4 @@ Is it Dec?
 Play now!
 
 
-![](https://www.antordec.com/assets/og-card.png)
+![https://www.antordec.com/](https://www.antordec.com/assets/og-card.png)
