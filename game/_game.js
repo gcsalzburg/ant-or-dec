@@ -38,6 +38,7 @@ var el_images         = document.getElementById('images');
 var el_timing_bar     = document.getElementById('timing_bar');
 var el_score_adds     = document.getElementById('score_additions');
 var el_score          = document.getElementById('my_score');
+var el_end            = document.getElementById('end');
 var el_final_score    = document.getElementById('final_score');
 var el_actual_who     = document.getElementById('actual_who');
 
@@ -150,10 +151,12 @@ function game_over(){
 
     addClass(document.body,"game_over");
     el_final_score.innerHTML = score.points;
+    antdecs[score.current].add(el_end);
+
     if(antdecs[score.current].was_guessed()){
-        el_actual_who.innerHTML = "that was " + antdecs[score.current].get_correct_name();
+        el_actual_who.innerHTML = "Oops, that was " + antdecs[score.current].get_correct_name() +'!';
     }else{
-        el_actual_who.innerHTML = "too slow";
+        el_actual_who.innerHTML = "Too slow, it was " + antdecs[score.current].get_correct_name() +'!';
     }
     
 }
