@@ -15,22 +15,27 @@ function loaded() {
 
 var num_antdecs_added = 0;
 function add_antdec_bg(){
-    var newAntDec = new AntDec(pick_antdec());
-    var new_img = newAntDec.add(el_loading_images);
-    new_img.style.left = ((Math.random()*el_loading_images.offsetWidth)-(110/2)) + 'px'; // to offset half way to the left
-    new_img.style.top = ((Math.random()*el_loading_images.offsetHeight)-(150/2)) + 'px'; // to offset half way to the top
-    new_img.style['z-index'] = num_antdecs_added;
-
-    num_antdecs_added++;
-
-    if(!score.playing && num_antdecs_added<150){
-        setTimeout(add_antdec_bg,50+num_antdecs_added);
+    if(!score.playing){
+        var newAntDec = new AntDec(pick_antdec());
+        var new_img = newAntDec.add(el_loading_images);
+        new_img.style.left = ((Math.random()*el_loading_images.offsetWidth)-(110/2)) + 'px'; // to offset half way to the left
+        new_img.style.top = ((Math.random()*el_loading_images.offsetHeight)-(150/2)) + 'px'; // to offset half way to the top
+        new_img.style['z-index'] = num_antdecs_added;
+    
+        num_antdecs_added++;
+    
+        if(num_antdecs_added<50){
+            add_antdec_bg();
+        }else{
+            setTimeout(add_antdec_bg,1000);
+        }
     }
 }
 
 var el_loading_images = document.getElementById('loading_images');
 var el_images         = document.getElementById('images');
 var el_timing_bar     = document.getElementById('timing_bar');
+var el_timing_bar_red = document.getElementById('timing_bar_overlay');
 var el_score_adds     = document.getElementById('score_additions');
 var el_score          = document.getElementById('my_score');
 var el_final_score    = document.getElementById('final_score');
@@ -69,7 +74,9 @@ function start_game() {
     removeClass(document.body,"game_over");
     removeClass(document.body,"loaded");
     el_score.innerHTML = score.points;
+    el_loading_images.innerHTML = '';
     el_score_adds.innerHTML = '';
+    num_antdecs_added = 0;
 
     // Start game loop
     score.playing = true;
@@ -88,7 +95,13 @@ function game_loop() {
     }else{
         // Update timing bar
         var time_perc = (time_left/score.max_time)*100;
+
+        // Set position
         el_timing_bar.style.height = time_perc+'%';
+
+        // Set colour
+        el_timing_bar_red.style.opacity = time_perc/100;
+
     } 
     
     // Do this loop again ASAP

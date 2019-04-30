@@ -46,9 +46,19 @@ body.game_over .end,            body.loaded .start{         display: block;}
     height: 0%;
     width: 100%;
     background-color: rgba(0,0,0,0.1);
+    background-color: #53ff47;
     position: absolute;
     left: 0;
     top: 0;
+}
+.timing_bar_overlay{
+    position: absolute;
+    opacity:0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #ff6f47;
 }
 
 h1{
@@ -100,6 +110,14 @@ h1{
     z-index:10;
 }
 
+@keyframes fade_in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 .loading_images .image{
     height: 150px;
     width: 110px;
@@ -110,6 +128,12 @@ h1{
     background-blend-mode: overlay;
     position: absolute;
     border: 3px solid #475cff;
+    animation-name: fade_in;
+    animation-fill-mode: forwards;
+    animation-duration: 700ms;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;  
+    opacity:1;
 }
 
 .images{
