@@ -127,7 +127,6 @@ h1{
     background-color: #475cff;
     background-blend-mode: overlay;
     position: absolute;
-    border: 3px solid #475cff;
     animation-name: fade_in;
     animation-fill-mode: forwards;
     animation-duration: 700ms;
