@@ -9,14 +9,26 @@ function loaded() {
     "But remember, cheats are only cheating themselves. \n"+
     "So behave (and have fun)! \n \n"+
     "George");
+
+    var max_w = el_loading_images.offsetWidth;
+    var max_h = el_loading_images.offsetHeight;
+
+    for(var i=0; i<num_antdec_assets; i++){
+        var newAntDec = new AntDec(pick_antdec());
+        var new_img = newAntDec.add(el_loading_images);
+        new_img.style.left = ((Math.random()*max_w)-(110/2)) + 'px'; // to offset half way to the left
+        new_img.style.top = ((Math.random()*max_h)-(150/2)) + 'px'; // to offset half way to the top
+        console.log(new_img);
+    }
 }
 
-var el_images       = document.getElementById('images');
-var el_timing_bar   = document.getElementById('timing_bar');
-var el_score_adds   = document.getElementById('score_additions');
-var el_score        = document.getElementById('my_score');
-var el_final_score  = document.getElementById('final_score');
-var el_actual_who   = document.getElementById('actual_who');
+var el_loading_images = document.getElementById('loading_images');
+var el_images         = document.getElementById('images');
+var el_timing_bar     = document.getElementById('timing_bar');
+var el_score_adds     = document.getElementById('score_additions');
+var el_score          = document.getElementById('my_score');
+var el_final_score    = document.getElementById('final_score');
+var el_actual_who     = document.getElementById('actual_who');
 
 
 // Score details
@@ -206,7 +218,7 @@ class AntDec{
 
         this._start_time = 0;
 
-        this._img = img;
+        this._img = img+'.jpg';
         this._obj = null;
         this.create_element();
     }
@@ -214,7 +226,7 @@ class AntDec{
     create_element(){
         this._obj = document.createElement('div');
         this._obj.style.transform = 'rotate('+this._rotation+'deg)';
-        this._obj.style['background-image'] = 'url(assets/antdecs/'+this._img+'.jpg)';
+        this._obj.style['background-image'] = 'url(assets/antdecs/'+this._img+')';
         addClass(this._obj, 'image');
 
         if(this._img.substr(0,3) == "ant"){
