@@ -2,6 +2,13 @@
 // Game assets have loaded
 function loaded() {
     // Show play button?
+
+    console.log("Hello! 🙋 \n\n"+
+
+    "If you know what you're doing, you can probably hack this game right here. \n"+
+    "But remember, cheats are only cheating themselves. \n"+
+    "So behave (and have fun)! \n \n"+
+    "George");
 }
 
 var el_images       = document.getElementById('images');
