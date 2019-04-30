@@ -46,6 +46,7 @@ var el_actual_who     = document.getElementById('actual_who');
 var antdecs = [];
 var score = {
     max_time: 1500,
+    curr_max_time: 1500,
     scaler: 50,
 
     played: 0,
@@ -69,6 +70,7 @@ function start_game() {
     score.played = 0;
     score.current = 0;
     score.points = 0;
+    score.curr_max_time = score.max_time;
     
     // Reset HTML
     removeClass(document.body,"game_over");
@@ -90,11 +92,11 @@ function game_loop() {
 
     var time_left = performance.now() - antdecs[score.current].get_start_time(); 
 
-    if(time_left > score.max_time){
+    if(time_left > score.curr_max_time){
         game_over();
     }else{
         // Update timing bar
-        var time_perc = (time_left/score.max_time)*100;
+        var time_perc = (time_left/score.curr_max_time)*100;
 
         // Set position
         el_timing_bar.style.height = time_perc+'%';
@@ -121,6 +123,9 @@ function next_image(){
     var extra_points = Math.round( (score.max_time - (performance.now() - antdecs[score.current].get_start_time())) / score.scaler);
     score.points += extra_points; // to avoid subtracting points from a rounding error 
     el_score.innerHTML = score.points;
+
+    // Make next round a little faster
+    score.curr_max_time -= 5;
 
     // Add marker to show extra points
     var new_score_plus = document.createElement('div');
