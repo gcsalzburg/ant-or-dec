@@ -16,6 +16,7 @@ var el_actual_who   = document.getElementById('actual_who');
 var antdecs = [];
 var score = {
     max_time: 1500,
+    scaler: 100,
 
     played: 0,
     current: 0,
@@ -83,7 +84,7 @@ function next_image(){
     },150);
 
     // Add extra points to score
-    var extra_points = Math.round( (score.max_time - (performance.now() - antdecs[score.current].get_start_time())) / 10);
+    var extra_points = Math.round( (score.max_time - (performance.now() - antdecs[score.current].get_start_time())) / score.scaler);
     score.points += extra_points; // to avoid subtracting points from a rounding error 
     el_score.innerHTML = score.points;
 
