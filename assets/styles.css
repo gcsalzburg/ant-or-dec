@@ -188,10 +188,16 @@ h1{
     display: none;
     text-align: center;
     transform: rotate(-2deg);
-    margin-top: 200px;
+    margin-top: 140px;
     position: relative;
     z-index: 50;
+}
 
+.intro_text{
+    font-size: 2em;
+    text-shadow: -1px 4px black;
+    margin-left: 25px;
+    margin-right: 25px;
 }
 
 .end{
