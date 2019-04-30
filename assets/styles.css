@@ -26,14 +26,15 @@ body{
 body.game_over{
     background-color: #ff6f47;
 }
-body.game_over .scores,         body.loaded .scores{        display: none;}
-body.game_over .loading_images, body.loaded .loading_images{display: block;}
-body.game_over .images,         body.loaded .images{        display: none;}
-body.game_over .buttons,        body.loaded .buttons{       display: none;}
-body.game_over .timing_bar,     body.loaded .timing_bar{    display: none;}
-body.game_over .start,          body.loaded .end{           display: none;}
+body.game_over .scores,         body.loaded .scores{         display: none;}
+body.game_over .loading_images, body.loaded .loading_images{ display: block;}
+body.game_over h1,              body.loaded h1{              display: block;}
+body.game_over .images,         body.loaded .images{         display: none;}
+body.game_over .buttons,        body.loaded .buttons{        display: none;}
+body.game_over .timing_bar,     body.loaded .timing_bar{     display: none;}
+body.game_over .start,          body.loaded .end{            display: none;}
 
-body.game_over .end,            body.loaded .start{         display: block;}
+body.game_over .end,            body.loaded .start{          display: block;}
 
 .good_bg{
     background-color: #53ff47;
@@ -61,14 +62,20 @@ h1{
     transform: rotate(2deg);
     position: relative;
     z-index: 20;
+    display:none;
 }
 
 .scores{
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size:2.5em;
+    font-size:4em;
+    margin: 30px 0 15px 0;
     position:relative;
+}
+.score{
+    text-shadow: 5px 5px black;
+    transform: rotate(-1deg);
 }
 @keyframes new_score_grow {
     0% { 

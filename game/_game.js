@@ -47,7 +47,7 @@ var el_actual_who     = document.getElementById('actual_who');
 var antdecs = [];
 var score = {
     max_time: 1500,
-    curr_max_time: 1500,
+    curr_max_time: 0,
     scaler: 50,
 
     played: 0,
