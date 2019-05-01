@@ -120,7 +120,7 @@ function game_over(){
     rules.playing = false;
 
     addClass(document.body,"game_over");
-    el_final_score.innerHTML = score.points;
+    el_final_score.innerHTML = Math.round(score.points);
     antdecs[rules.current].add(el_actual_who_image);
 
     if(antdecs[rules.current].was_guessed()){
@@ -173,9 +173,9 @@ function next_image(){
     },150);
 
     // Add extra points to score
-    var extra_points = Math.round( (rules.max_time - (performance.now() - antdecs[rules.current].get_start_time())) / rules.scaler);
+    var extra_points = (rules.max_time - (performance.now() - antdecs[rules.current].get_start_time())) / rules.scaler;
     score.points += extra_points; // to avoid subtracting points from a rounding error 
-    el_score.innerHTML = score.points;
+    el_score.innerHTML = Math.round(score.points);
 
     // Make next round a little faster
     rules.curr_max_time -= rules.speed_increaser;
@@ -184,7 +184,7 @@ function next_image(){
     var new_score_plus = document.createElement('div');
     new_score_plus.style['margin-left'] = (Math.random()*150 - 75) + 'px';
     new_score_plus.style.top = (Math.random()*30) + 'px';
-    new_score_plus.innerHTML = "+" + extra_points;
+    new_score_plus.innerHTML = "+" + Math.round(extra_points);
     addClass(new_score_plus, 'new_score');
     el_score_adds.appendChild(new_score_plus); 
 
