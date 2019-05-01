@@ -40,9 +40,13 @@ function await_load(callback){
 
 
 // Button press handler for mobile / desktop
+// Uses jQuery PEP (polyfill for pointer events)
 function attach_button_handler(button, callback){
-    button.addEventListener('touchend', function(e){
+    button.addEventListener('pointerdown', function(e){
         e.preventDefault();
         callback();
+    });
+    button.addEventListener('click', function(e){
+        e.preventDefault();
     });
 }
