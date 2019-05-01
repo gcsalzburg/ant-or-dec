@@ -10,6 +10,7 @@ var el_score_adds     = document.getElementById('score_additions');
 var el_score          = document.getElementById('my_score');
 var el_end            = document.getElementById('end');
 var el_final_score    = document.getElementById('final_score');
+var el_actual_who_image = document.getElementById('actual_who_image');
 var el_actual_who     = document.getElementById('actual_who');
 
 // Game objects
@@ -84,7 +85,7 @@ function start_game() {
     el_score.innerHTML = score.points;
     el_loading_images.innerHTML = '';
     el_score_adds.innerHTML = '';
-    // TODO: Remove end game ant/dec here as well
+    el_actual_who_image.innerHTML = '';
 
     // Start game loop
     rules.playing = true;
@@ -120,7 +121,7 @@ function game_over(){
 
     addClass(document.body,"game_over");
     el_final_score.innerHTML = score.points;
-    antdecs[rules.current].add(el_end);
+    antdecs[rules.current].add(el_actual_who_image);
 
     if(antdecs[rules.current].was_guessed()){
         el_actual_who.innerHTML = "Oops, that was " + antdecs[rules.current].get_correct_name() +'!';
