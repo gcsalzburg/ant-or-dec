@@ -15,7 +15,7 @@ function loaded() {
 
 var num_antdecs_added = 0;
 function add_antdec_bg(){
-    if(!score.playing){
+    if(!rules.playing){
         var newAntDec = new AntDec(pick_antdec());
         var new_img = newAntDec.add(el_loading_images);
         new_img.style.left = ((Math.random()*el_loading_images.offsetWidth)-(110/2)) + 'px'; // to offset half way to the left
@@ -46,16 +46,17 @@ var el_actual_who     = document.getElementById('actual_who');
 // Score details
 var antdecs = [];
 var score = {
+    played: 0,
+    points: 0
+};
+var rules = {
     max_time: 1500,
     curr_max_time: 0,
     scaler: 50,
-
-    played: 0,
     current: 0,
-    points: 0,
 
     playing: false
-};
+}
 
 // Start game
 function start_game() {
@@ -69,9 +70,9 @@ function start_game() {
 
     // Reset scores
     score.played = 0;
-    score.current = 0;
     score.points = 0;
-    score.curr_max_time = score.max_time;
+    rules.current = 0;
+    rules.curr_max_time = rules.max_time;
     num_antdecs_added = 0;
     
     // Reset HTML
@@ -83,8 +84,8 @@ function start_game() {
     // TODO: Remove end game ant/dec here as well
 
     // Start game loop
-    score.playing = true;
-    antdecs[score.current].start_timer();
+    rules.playing = true;
+    antdecs[rules.current].start_timer();
     game_loop();
 
 }
@@ -92,20 +93,20 @@ function start_game() {
 // Play game
 function game_loop() {
 
-    var time_left = performance.now() - antdecs[score.current].get_start_time(); 
+    var time_left = performance.now() - antdecs[rules.current].get_start_time(); 
 
-    if(time_left > score.curr_max_time){
+    if(time_left > rules.curr_max_time){
         game_over();
     }else{
         // Update timing bar
-        var time_perc = (time_left/score.curr_max_time)*100;
+        var time_perc = (time_left/rules.curr_max_time)*100;
 
         // Set position
         el_timing_bar.style.height = time_perc+'%';
     } 
     
     // Do this loop again ASAP
-    if(score.playing){
+    if(rules.playing){
         requestAnimationFrame(game_loop);
     }
 }
@@ -115,19 +116,19 @@ function game_loop() {
 function next_image(){
 
     // Update HTML display effects
-    antdecs[score.current].remove();
+    antdecs[rules.current].remove();
     addClass(document.body,"bg_flash");
     setTimeout(function(){
         removeClass(document.body,"bg_flash");
     },150);
 
     // Add extra points to score
-    var extra_points = Math.round( (score.max_time - (performance.now() - antdecs[score.current].get_start_time())) / score.scaler);
+    var extra_points = Math.round( (rules.max_time - (performance.now() - antdecs[rules.current].get_start_time())) / rules.scaler);
     score.points += extra_points; // to avoid subtracting points from a rounding error 
     el_score.innerHTML = score.points;
 
     // Make next round a little faster
-    score.curr_max_time -= 5;
+    rules.curr_max_time -= 5;
 
     // Add marker to show extra points
     var new_score_plus = document.createElement('div');
@@ -138,8 +139,8 @@ function next_image(){
     el_score_adds.appendChild(new_score_plus); 
 
     // Load in next ant/dec and increment position counter
-    score.current++;
-    antdecs[score.current].start_timer();
+    rules.current++;
+    antdecs[rules.current].start_timer();
     score.played++;
 
     // Add new one to stack
@@ -148,16 +149,16 @@ function next_image(){
 
 // Game over
 function game_over(){
-    score.playing = false;
+    rules.playing = false;
 
     addClass(document.body,"game_over");
     el_final_score.innerHTML = score.points;
-    antdecs[score.current].add(el_end);
+    antdecs[rules.current].add(el_end);
 
-    if(antdecs[score.current].was_guessed()){
-        el_actual_who.innerHTML = "Oops, that was " + antdecs[score.current].get_correct_name() +'!';
+    if(antdecs[rules.current].was_guessed()){
+        el_actual_who.innerHTML = "Oops, that was " + antdecs[rules.current].get_correct_name() +'!';
     }else{
-        el_actual_who.innerHTML = "Too slow, it was " + antdecs[score.current].get_correct_name() +'!';
+        el_actual_who.innerHTML = "Too slow, it was " + antdecs[rules.current].get_correct_name() +'!';
     }
     
 }
@@ -169,26 +170,20 @@ function add_antdec(){
     antdecs.push(newAntDec);
 }
 
-// UI buttons
-button_start.addEventListener('touchend', function(e){
-    e.preventDefault();
-    start_game();
-});
-button_play_again.addEventListener('touchend', function(e){
-    e.preventDefault();
-    start_game();
-});
-button_ant.addEventListener('touchend', function(e){
-    e.preventDefault();
+// UI buttons for start/restart
+attach_button_handler(button_start,start_game);
+attach_button_handler(button_play_again,start_game);
+
+// UI buttons for antdec handling
+attach_button_handler(button_ant,function(){
     button_handle(1);
 });
-button_dec.addEventListener('touchend', function(e){
-    e.preventDefault();
+attach_button_handler(button_dec,function(){
     button_handle(2);
 });
 function button_handle(antordec){
-    antdecs[score.current].set_guess(antordec);
-    if(antdecs[score.current].is_correct()){
+    antdecs[rules.current].set_guess(antordec);
+    if(antdecs[rules.current].is_correct()){
         next_image();
     }else{
         game_over();
@@ -215,85 +210,4 @@ function pick_antdec(){
     return  antdec_assets[img_index];
 }
 
-
-// Multi-browser document load detection
-// https://plainjs.com/javascript/events/running-code-when-the-document-is-ready-15/
-if (document.readyState!='loading'){
-    loaded();
-}else if (document.addEventListener){
-    document.addEventListener('DOMContentLoaded', loaded);
-}else{
-    document.attachEvent('onreadystatechange', function(){
-        if (document.readyState=='complete') loaded();
-    });
-}
-
-// /////////////////////////////////
-// // ANTDEC class                //
-// /////////////////////////////////
-
-class AntDec{
-    constructor(img){
-        this._rotation = (Math.random()*6)-3; // random angle between -3 and +3
-        this._played  = false;
-        this._answer = 0; // 0 = not assigned, 1 = ANT, 2 = DEC
-        this._guess = 0;  // 0 = no guess, 1 = ANT, 2 = DEC
-        this._was_correct = false;
-
-        this._start_time = 0;
-
-        this._img = img+'.jpg';
-        this._obj = null;
-        this.create_element();
-    }
-
-    create_element(){
-        this._obj = document.createElement('div');
-        this._obj.style.transform = 'rotate('+this._rotation+'deg)';
-        this._obj.style['background-image'] = 'url(assets/antdecs/'+this._img+')';
-        addClass(this._obj, 'image');
-
-        if(this._img.substr(0,3) == "ant"){
-            this._answer = 1;
-        }else if(this._img.substr(0,3) == "dec"){
-            this._answer = 2;
-        }
-    }
-
-    set_guess(guess){
-        this._guess = guess;
-        if(this._guess == this._answer){
-            this._was_correct = true;
-        }
-    }
-    start_timer(){
-        this._start_time = performance.now();
-        return this.get_start_time();
-    }
-    get_start_time(){
-        return this._start_time;
-    }
-    get_correct_name(){
-        if(this._answer == 1){
-            return "Ant";
-        }else if(this._answer == 2){
-            return "Dec";
-        }else{
-            return "???";
-        }
-    }
-
-    is_correct(){
-        return this._was_correct;
-    }
-    was_guessed(){
-        return (this._guess > 0) ? true : false;
-    }
-
-    add(container){
-        return container.insertBefore(this._obj, container.childNodes[0] || null);
-    }
-    remove(){
-        return this._obj.parentNode.removeChild(this._obj);
-    }
-}
+await_load(loaded);

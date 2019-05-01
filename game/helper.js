@@ -19,3 +19,30 @@ function removeClass(el, className) {
     if (el.classList) el.classList.remove(className);
     else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
 }
+
+
+
+// Multi-browser document load detection
+// https://plainjs.com/javascript/events/running-code-when-the-document-is-ready-15/
+function await_load(callback){
+    if (document.readyState!='loading'){
+        callback();
+    }else if (document.addEventListener){
+        document.addEventListener('DOMContentLoaded', callback);
+    }else{
+        document.attachEvent('onreadystatechange', function(){
+            if (document.readyState=='complete'){
+                callback();
+            }
+        });
+    }
+}
+
+
+// Button press handler for mobile / desktop
+function attach_button_handler(button, callback){
+    button.addEventListener('touchend', function(e){
+        e.preventDefault();
+        callback();
+    });
+}
