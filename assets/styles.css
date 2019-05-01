@@ -210,9 +210,10 @@ h1{
     display: none;
     text-align: center;
     transform: rotate(-2deg);
-    margin-top: 220px;
+    margin-top: 150px;
     z-index:50;
     position: relative;
+    font-size: 0.8em;
 }
 .end h2{
     font-size: 2.7em;
@@ -222,12 +223,15 @@ h1{
 .end .button_play_again, .start .button_start, .end .button_add_highscore{
     display: inline-block;
     background: #fff;
-    padding: 15px 25px;
+    padding: 7px 15px;
     font-size: 2em;
     text-transform: uppercase;
     text-decoration: none;
     color: #000;
     font-weight: bold;
+}
+.start .button_start{
+    padding: 15px 25px;
 }
 .end .button_add_highscore{
     transform: rotate(4deg);
@@ -243,7 +247,7 @@ h1{
     position: absolute;
     left: 50%;
     margin-left: -55px;
-    top: -180px;
+    top: -150px;
     z-index: -5;
     border: 3px solid #fff;
 }
