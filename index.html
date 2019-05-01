@@ -69,6 +69,29 @@
                 <h2><span id="actual_who"></span></h2>
                 <h2>Score: <span class="final_score" id="final_score">0</span></h2>
                 <a href="#play_again" id="button_play_again" class="button_play_again">Play again</a>
+                <h2>or</h2>
+                <a href="#show_highscore" id="button_add_highscore" class="button_add_highscore">Add to highscore table!</a>
+            </section>
+            <section id="end_highscore" class="end_highscore">
+                <h1>You got: <span class="user_score" id="final_highscore">?</span></h1>
+                <div class="form_area">
+                    <form method="post" action="https://scores.designedbycave.co.uk/a/iCPF6psu6iZULoMYKnZq/" id="score_form" class="score_form">
+                        <input name="user" type="text" id="name" class="input_box" placeholder="Enter your name">
+                        <input type="submit" id="submit" class="submit_button" value="Save!">
+                    </form>
+                    <div class="play_again_panel" id="play_again_panel">
+                        Highscore saved! <a href="#play_again" id="button_play_again2" class="button_play_again">Play again!</a>
+                    </div>
+                </div>
+                <div class="score_table" id="score_table">
+                    <table id="score_table_tbl" class="score_table_tbl">
+                        <thead>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </thead>
+                        <tbody></tbody>
+                    </table>    
+                </div>
             </section>
         </main>
 

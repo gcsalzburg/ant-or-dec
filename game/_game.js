@@ -12,6 +12,7 @@ var el_end            = document.getElementById('end');
 var el_final_score    = document.getElementById('final_score');
 var el_actual_who_image = document.getElementById('actual_who_image');
 var el_actual_who     = document.getElementById('actual_who');
+var el_button_add_highscore = document.getElementById('button_add_highscore');
 
 // Game objects
 var antdec_assets = [];
@@ -53,6 +54,12 @@ function loaded() {
         antdec_assets.push('dec'+i);
     }
 
+    // Add submit handler for highscore table
+    document.getElementById("score_form").addEventListener("submit",function(e){
+        e.preventDefault();
+        send_score();
+    });
+
     // Add message to naughty hackers
     console.log("Hello! 🙋 \n\n"+
     "If you know what you're doing, you can probably hack this game right here. \n"+
@@ -82,6 +89,8 @@ function start_game() {
     // Reset HTML
     removeClass(document.body,"game_over");
     removeClass(document.body,"loaded");
+    removeClass(document.body,"display_highscore");
+    removeClass(document.getElementById('end_highscore'),"show_play_again");
     el_score.innerHTML = score.points;
     el_loading_images.innerHTML = '';
     el_score_adds.innerHTML = '';
@@ -198,12 +207,75 @@ function next_image(){
 }
 
 // ///////////////////////////////////////////////////// //
+// // Highscore control                                  //
+// ///////////////////////////////////////////////////// //
+
+function show_highscore(){
+    addClass(document.body,"display_highscore");
+    document.getElementById('final_highscore').innerHTML = Math.round(score.points);
+
+    document.getElementById("score_table_tbl").getElementsByTagName('tbody')[0].innerHTML = "<tr><td>Loading...</td><td></td></tr>";
+    
+    // Load highscore table
+    fetch_scores();
+}
+
+function send_score(){
+
+    postAjax(
+        'https://scores.designedbycave.co.uk/a/DydrPV3XLzkZJ9pwoVbA/',
+        {
+            score: score.points,
+            user: document.getElementById("name").value
+        },
+        function(data){
+            try{
+                var json = JSON.parse(data);
+                if(!json.error){
+                    addClass(document.getElementById('end_highscore'),"show_play_again");
+                    fetch_scores(parseInt(json.my_row));
+                }
+            }catch{
+                console.log("Score response parse error");
+            }
+        }
+    );
+}
+
+function fetch_scores(my_row){
+    getCORS('https://scores.designedbycave.co.uk/f/DydrPV3XLzkZJ9pwoVbA/', function(request){
+        var data = request.currentTarget.response || request.target.responseText;
+        try{
+            var json = JSON.parse(data);
+            var scores = json.scores;
+    
+            // Empty table first
+            document.getElementById("score_table_tbl").getElementsByTagName('tbody')[0].innerHTML = "";
+    
+            for (var i=0, len=scores.length; i < len; i++) {
+                var classname = "";
+                if((my_row>0) && (my_row == parseInt(scores[i].id))){
+                    classname = "my_row";
+                }
+                document.getElementById("score_table_tbl").getElementsByTagName('tbody')[0].innerHTML += '<tr class="'+classname+'"><td>'+scores[i].user+'</td><td>'+Math.round(scores[i].score)+'</td></tr>';
+    
+            }
+        }catch{
+            console.log("Highscore table parse error");
+        }
+       
+    });
+}
+
+// ///////////////////////////////////////////////////// //
 // // UI controls                                        //
 // ///////////////////////////////////////////////////// //
 
 // UI buttons for start/restart
 attach_button_handler(button_start,start_game);
 attach_button_handler(button_play_again,start_game);
+attach_button_handler(button_play_again2,start_game);
+
 
 // UI buttons for antdec handling
 attach_button_handler(button_ant,function(){
@@ -212,6 +284,9 @@ attach_button_handler(button_ant,function(){
 attach_button_handler(button_dec,function(){
     ant_dec_guessed(2);
 });
+
+// Highscore buttons
+attach_button_handler(button_add_highscore,show_highscore);
 
 // Keyboard handling
 
