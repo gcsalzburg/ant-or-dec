@@ -43,6 +43,15 @@ body.game_over .end,            body.loaded .start{          display: block;}
     background-color: #ff6f47;
 }
 
+.container{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
 .timing_bar{
     height: 0%;
     width: 100%;
