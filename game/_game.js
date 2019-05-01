@@ -45,7 +45,6 @@ await_load(loaded);
 
 // Game assets have loaded
 function loaded() {
-    // Show play button?
     
     // Load in array of ant dec images
     for(var i=1; i<=20; i++){    // number of antdecs in folder
@@ -95,6 +94,9 @@ function start_game() {
 
 // Play game
 function game_loop() {
+
+    // Check for keyboard presses
+    check_keys();
 
     // Get time for left to play this antdec
     var time_left = performance.now() - antdecs[rules.current].get_start_time(); 
@@ -209,6 +211,31 @@ attach_button_handler(button_ant,function(){
 attach_button_handler(button_dec,function(){
     ant_dec_guessed(2);
 });
+
+// Keyboard handling
+
+var keysDown = {};
+var keysUp = {};
+
+addEventListener("keydown", function (e) {
+    keysDown[e.keyCode] = true;
+}, false);
+
+addEventListener("keyup", function (e) {
+    delete keysDown[e.keyCode];
+    keysUp[e.keyCode] = true;
+}, false);
+
+check_keys = function(){
+    // Handle key presses
+    if(65 in keysDown){         // A
+        delete keysDown[65];
+        ant_dec_guessed(1);
+    }else if(68 in keysDown){   // D
+        delete keysDown[68];
+        ant_dec_guessed(2);
+    }
+}
 
 
 // ///////////////////////////////////////////////////// //
