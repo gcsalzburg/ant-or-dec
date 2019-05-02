@@ -274,7 +274,7 @@ h1{
     margin: 12px;
     color: #000;
     border: 10px solid #93FF8A;
-    padding: 15px;
+    padding: 0px;
 }
 
 .end_highscore h1{
@@ -339,7 +339,7 @@ body.display_highscore .end_highscore{
     margin: 10px auto 0;
     height: 400px;
     overflow-y: scroll;
-    height: 320px;
+    height: 360px;
 }
 .score_table_tbl{
     width: 100%;
@@ -349,7 +349,6 @@ body.display_highscore .end_highscore{
 .score_table_tbl thead{
     line-height: 2em;
     font-weight: bold;
-    background-color: #000;
     color: #fff;
 }
 .score_table_tbl th{
@@ -357,8 +356,12 @@ body.display_highscore .end_highscore{
     text-transform: uppercase;
     padding: 0 15px;
     text-align: left;
+    background-color: #000;
 }
-.score_table_tbl th:nth-of-type(n+2){
+.score_table_tbl th:first-of-type{
+    background-color:none;
+}
+.score_table_tbl th:nth-of-type(n+3){
     text-align: center;
 }
 .score_table_tbl tr td{
@@ -370,8 +373,13 @@ body.display_highscore .end_highscore{
 .score_table_tbl tr:nth-of-type(2n) td{
     background-color: rgba(255,255,255,0.25);
 }
-.score_table_tbl tr td:nth-of-type(n+2){
+.score_table_tbl tr td:nth-of-type(n+3){
     text-align: center;
+}
+.score_table_tbl tr td:first-of-type, .score_table_tbl thead th:first-of-type{
+    padding-left:5px;
+    padding-right:0;
+    text-align:right;
 }
 .score_table_tbl tr.my_row td{
     background-color: #fff;

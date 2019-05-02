@@ -257,7 +257,7 @@ function fetch_scores(my_row){
                 if((my_row>0) && (my_row == parseInt(scores[i].id))){
                     classname = "my_row";
                 }
-                document.getElementById("score_table_tbl").getElementsByTagName('tbody')[0].innerHTML += '<tr class="'+classname+'"><td>'+scores[i].user+'</td><td>'+Math.round(scores[i].score)+'</td></tr>';
+                document.getElementById("score_table_tbl").getElementsByTagName('tbody')[0].innerHTML += '<tr class="'+classname+'"><td>'+scores[i].rank+'</td><td>'+scores[i].user+'</td><td>'+Math.round(scores[i].score)+'</td></tr>';
     
             }
         }catch{
