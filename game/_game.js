@@ -91,6 +91,7 @@ function start_game() {
     removeClass(document.body,"loaded");
     removeClass(document.body,"display_highscore");
     removeClass(document.getElementById('end_highscore'),"show_play_again");
+    removeClass(document.getElementById('end'),"hide_highscore_submit");
     el_score.innerHTML = score.points;
     el_loading_images.innerHTML = '';
     el_score_adds.innerHTML = '';
@@ -131,6 +132,10 @@ function game_over(){
     addClass(document.body,"game_over");
     el_final_score.innerHTML = Math.round(score.points);
     antdecs[rules.current].add(el_actual_who_image);
+
+    if(score.points <= 0){
+        addClass(document.getElementById('end'),"hide_highscore_submit");
+    }
 
     if(antdecs[rules.current].was_guessed()){
         el_actual_who.innerHTML = "Oops, that was " + antdecs[rules.current].get_correct_name() +'!';

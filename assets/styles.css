@@ -261,6 +261,9 @@ h1{
     color: #B72900;
     opacity: 0.7;
 }
+.end.hide_highscore_submit .hide_if_zero{
+    display:none;
+}
 
 .end_highscore{
     display:none;
