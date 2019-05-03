@@ -30,22 +30,25 @@
     <body class="is_start">
         <noscript>You need to enable Javascript to play this game!</noscript>
         <main class="container fullpage">
+
             <div class="timing_bar" id="timing_bar" class="hide_if_start hide_if_playing"></div>
-            <h1 class="hide_if_playing">ANT or DEC</h1>
             <section id="scores" class="scores hide_if_start hide_if_game_over">
                 <div id="my_score" class="score">0</div>
                 <div id="score_additions" class="score_additions"></div>
             </section>
-            <section id="loading_images fullpage" class="loading_images hide_if_playing hide_if_game_over"></section>
+            <section id="loading_images" class="loading_images fullpage hide_if_playing hide_if_game_over"></section>
             <section id="images" class="images hide_if_start hide_if_game_over"></section>
             <section id="buttons" class="buttons hide_if_start hide_if_game_over">
                 <a href="#ant" id="button_ant" class="button button_ant">ANT ?</a>
                 <a href="#dec" id="button_dec" class="button button_dec">DEC ?</a>
             </section>
+
+            <h1 class="hide_if_playing">ANT or DEC</h1>
             <section id="start" class="start hide_if_playing hide_if_game_over">
                 <h3 class="intro_text">Race the clock...<br>Is it Ant?<br>Is it Dec?</h3>
                 <a href="#play_start" id="button_start" class="butt button_start">Play now!</a>
             </section>
+
             <section id="end" class="end hide_if_start hide_if_playing">
                 <div class="actual_who_image" id="actual_who_image"></div>
                 <h2><span id="actual_who"></span></h2>
@@ -54,7 +57,8 @@
                 <h2 class="hide_if_zero">or</h2>
                 <a href="#show_highscore" id="button_add_highscore" class="butt button_add_highscore hide_if_zero">Add to highscore table!</a>
             </section>
-            <section id="end_highscore fullpage" class="end_highscore show_if_highscore">
+
+            <section id="end_highscore" class="end_highscore fullpage show_if_highscore">
                 <h1>You got: <span class="user_score" id="final_highscore">?</span></h1>
                 <div class="form_area">
                     <form method="post" action="https://scores.designedbycave.co.uk/a/iCPF6psu6iZULoMYKnZq/" id="score_form" class="score_form">

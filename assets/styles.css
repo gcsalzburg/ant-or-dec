@@ -76,24 +76,11 @@ body{
     }
 }
 
-/* ///////////////////////////////////////////////////// */
-/* // Visibility toggles                                 */
-/* ///////////////////////////////////////////////////// */
-
-body.is_playing     .hide_if_playing{  display:none;}
-body.is_start       .hide_if_start{    display:none;}
-body.is_game_over   .hide_if_game_over{display:none;}
-
-body                .show_if_highscore{display:none;}
-body.is_highscore   .show_if_highscore{display:block;}
 
 /* ///////////////////////////////////////////////////// */
 /* // Colours                                            */
 /* ///////////////////////////////////////////////////// */
 
-body.is_game_over{
-    background-color: #ff6f47;
-}
 
 .good_bg{
     background-color: #53ff47;
@@ -103,18 +90,11 @@ body.is_game_over{
 }
 
 
+/* ///////////////////////////////////////////////////// */
+/* // Start screen                                       */
+/* ///////////////////////////////////////////////////// */
 
-
-
-.timing_bar{
-    height: 0%;
-    width: 100%;
-    background-color: rgba(0,0,0,0.1);
-    background-color: #ff6f47;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
+body.is_start .hide_if_start{display:none;}
 
 h1{
     font-size: 4em;
@@ -125,6 +105,53 @@ h1{
     transform: rotate(2deg);
     position: relative;
     z-index: 20;
+}
+
+.loading_images{
+    z-index:10;
+}
+.loading_images .image{
+    height: 150px;
+    width: 110px;
+    background: #475cff 50% 50% / cover no-repeat; 
+    background-blend-mode: overlay;
+    position: absolute;
+    animation: fade_in 700ms linear 1 forwards; 
+    opacity:1;
+}
+
+.start{
+    text-align: center;
+    transform: rotate(-2deg);
+    margin-top: 140px;
+    position: relative;
+    z-index: 50;
+}
+.start .button_start{
+    padding: 15px 25px;
+}
+
+.intro_text{
+    font-size: 2em;
+    text-shadow: -1px 4px black;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+
+/* ///////////////////////////////////////////////////// */
+/* // Playing screen                                     */
+/* ///////////////////////////////////////////////////// */
+
+body.is_playing .hide_if_playing{display:none;}
+
+.timing_bar{
+    height: 0%;
+    width: 100%;
+    background-color: #ff6f47;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .scores{
@@ -139,58 +166,26 @@ h1{
     text-shadow: 5px 5px black;
     transform: rotate(-1deg);
 }
-
 .new_score{
     position: absolute;
     font-weight: bold;
     font-size: 0.3em;
-    animation-name: new_score_grow;
-    animation-fill-mode: forwards;
-    animation-duration: 600ms;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-out;  
-}
-
-.loading_images{
-    z-index:10;
-}
-
-
-.loading_images .image{
-    height: 150px;
-    width: 110px;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: cover;
-    background-color: #475cff;
-    background-blend-mode: overlay;
-    position: absolute;
-    animation-name: fade_in;
-    animation-fill-mode: forwards;
-    animation-duration: 700ms;
-    animation-iteration-count: 1;
-    animation-timing-function: linear;  
-    opacity:1;
+    animation: new_score_grow 600ms ease-out 1 forwards;
 }
 
 .images{
     margin-top: 15px;
     position:relative;
     z-index:30;
-    position: relative;
 }
-
 .images .image{
     height: 400px;
     width: 300px;
-    background-color: rgba(255,255,255,1);
+    background: rgba(255,255,255,1) 50% 50% / cover no-repeat;
     border: 2px solid rgba(0,0,0,1);
     margin-left: -150px;
     left:50%;
     position:absolute;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: cover;
 }
 
 .buttons{
@@ -217,23 +212,15 @@ h1{
 .button_dec{
     transform:rotate(4deg);
 }
-.button:focus{
-    background-color: #ffd829;
-}
 
-.start{
-    text-align: center;
-    transform: rotate(-2deg);
-    margin-top: 140px;
-    position: relative;
-    z-index: 50;
-}
+/* ///////////////////////////////////////////////////// */
+/* // Game over screen                                   */
+/* ///////////////////////////////////////////////////// */
 
-.intro_text{
-    font-size: 2em;
-    text-shadow: -1px 4px black;
-    margin-left: 25px;
-    margin-right: 25px;
+body.is_game_over .hide_if_game_over{display:none;}
+
+body.is_game_over{
+    background-color: #ff6f47;
 }
 
 .end{
@@ -249,9 +236,26 @@ h1{
     margin: 10px 0;
     text-shadow: 3px 3px black;
 }
-.start .button_start{
-    padding: 15px 25px;
-}
+
+/* ///////////////////////////////////////////////////// */
+/* // High score screen                                  */
+/* ///////////////////////////////////////////////////// */
+
+body                .show_if_highscore{display:none;}
+body.is_highscore   .show_if_highscore{display:block;}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .end .button_add_highscore{
     transform: rotate(4deg);
 }
