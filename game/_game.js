@@ -47,13 +47,38 @@ await_load(loaded);
 
 // Game assets have loaded
 function loaded() {
-    
+
     // Load in array of ant dec images
+    var ass_manager = new AssetManager();
+    ass_manager.setDefaultPath("assets/antdecs/");
     for(var i=1; i<=20; i++){    // number of antdecs in folder
         antdec_assets.push('ant'+i);
         antdec_assets.push('dec'+i);
+
+        ass_manager.queueDownload('ant'+i+'.jpg');
+        ass_manager.queueDownload('dec'+i+'.jpg');
+
     }
 
+    // When complete, show play button
+    var assets_complete = function(){
+        removeClass(document.getElementById("start"),"is_loading");
+
+        // Push first background image to homepage
+        add_antdec_bg();  
+    }
+
+    // Update bar with progress
+    var assets_loading = function(success,error,total){
+        // Map loading progress onto loading bar
+        var bar = document.getElementById("loading_bar");
+        bar.style.width = (100*success/total) + "%";   
+    }
+
+    // Begin asset loading
+    ass_manager.downloadAll(assets_complete,assets_loading);
+
+    
     // Add submit handler for highscore table
     document.getElementById("score_form").addEventListener("submit",function(e){
         e.preventDefault();
@@ -67,8 +92,6 @@ function loaded() {
     "So behave (and have fun)! \n \n"+
     "George");
 
-    // Push first background image to homepage
-    add_antdec_bg();
 }
 
 

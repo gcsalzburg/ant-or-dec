@@ -34,8 +34,11 @@
             <section class="start fullpage hide_if_playing hide_if_game_over">
                 <section id="loading_images" class="loading_images fullpage"></section>
                 <h1>ANT or DEC</h1>
-                <div id="start" class="start_text">
+                <div id="start" class="start_text is_loading">
                     <h3 class="intro_text">Race the clock...<br>Is it Ant?<br>Is it Dec?</h3>
+                    <div class="loading_bar_holder">
+                        <span class="loading_bar" id="loading_bar"></span>
+                    </div>
                     <a href="#play_start" id="button_start" class="butt button_start">Play now!</a>
                 </div>
                 <div class="start_menu">
@@ -94,6 +97,7 @@
         </main>
 
         <script src="assets/js/pep-0.4.3.js"></script>
+        <script src="assets/js/AssetManager.js"></script>
         <script src="assets/js/helper.js"></script>
         <script src="game/AntDec.js"></script>
         <script src="game/_game.js"></script>

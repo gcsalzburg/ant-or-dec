@@ -9,7 +9,7 @@ html{
 }
 body{
     height: 100%;
-    font-family: 'Neucha', cursive;
+    font-family: 'Neucha', sans-serif;
     background-color: #475cff;
     color: #ffffff;
     overflow: hidden;
@@ -155,6 +155,30 @@ h1{
 }
 .start_menu .butt:nth-of-type(2){
     transform: rotate(1deg);
+}
+
+.start .loading_bar_holder{
+    width: 180px;
+    border: 4px solid #fff;
+    margin: 0 auto;
+    height: 30px;
+    padding: 5px;
+    display:none;
+}
+
+.start .loading_bar{
+    background-color: #fff;
+    display: block;
+    width: 0%;
+    height: 100%;
+}
+
+
+.start.is_loading .button_start{
+    display:none;
+}
+.start.is_loading .loading_bar_holder{
+    display:block;
 }
 
 /* ///////////////////////////////////////////////////// */
