@@ -87,9 +87,7 @@ function start_game() {
     rules.curr_max_time = rules.max_time;
     
     // Reset HTML
-    removeClass(document.body,"game_over");
-    removeClass(document.body,"loaded");
-    removeClass(document.body,"display_highscore");
+    set_body_state("is_playing");
     removeClass(document.getElementById('end_highscore'),"show_play_again");
     removeClass(document.getElementById('end'),"hide_highscore_submit");
     el_score.innerHTML = score.points;
@@ -129,7 +127,7 @@ function game_loop() {
 function game_over(){
     rules.playing = false;
 
-    addClass(document.body,"game_over");
+    set_body_state("is_game_over");
     el_final_score.innerHTML = Math.round(score.points);
     antdecs[rules.current].add(el_actual_who_image);
 
@@ -216,7 +214,7 @@ function next_image(){
 // ///////////////////////////////////////////////////// //
 
 function show_highscore(){
-    addClass(document.body,"display_highscore");
+    addClass(document.body,"is_highscore");
     document.getElementById('final_highscore').innerHTML = Math.round(score.points);
 
     document.getElementById("score_table_tbl").getElementsByTagName('tbody')[0].innerHTML = "<tr><td>Loading...</td><td></td></tr>";
@@ -341,4 +339,17 @@ function add_antdec_bg(){
             setTimeout(add_antdec_bg,1000);
         }
     }
+}
+
+
+// ///////////////////////////////////////////////////// //
+// // Helpers                                            //
+// ///////////////////////////////////////////////////// //
+
+function set_body_state(state){
+    removeClass(document.body,"is_game_over");
+    removeClass(document.body,"is_start");
+    removeClass(document.body,"is_highscore");
+    removeClass(document.body,"is_playing");
+    addClass(document.body,state);
 }

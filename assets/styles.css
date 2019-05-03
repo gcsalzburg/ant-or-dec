@@ -1,3 +1,8 @@
+
+/* ///////////////////////////////////////////////////// */
+/* // Base layout                                        */
+/* ///////////////////////////////////////////////////// */
+
 html{
     height: 100%;
     overflow: hidden;
@@ -12,6 +17,34 @@ body{
     padding: 0;
 }
 
+/* ///////////////////////////////////////////////////// */
+/* // Core building blocks                               */
+/* ///////////////////////////////////////////////////// */
+
+.fullpage{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.butt{
+    display: inline-block;
+    background: #fff;
+    padding: 7px 15px;
+    font-size: 2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;  
+}
+
+/* ///////////////////////////////////////////////////// */
+/* // Animations                                         */
+/* ///////////////////////////////////////////////////// */
+
 @keyframes bg_flash_ani {
     0% {  background-color: #53ff47; }
     100% { background-color: #475cff; }
@@ -23,18 +56,44 @@ body{
     animation-timing-function: linear;  
 }
 
-body.game_over{
+@keyframes new_score_grow {
+    0% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(9);
+        opacity: 0;
+    }
+}
+
+@keyframes fade_in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* ///////////////////////////////////////////////////// */
+/* // Visibility toggles                                 */
+/* ///////////////////////////////////////////////////// */
+
+body.is_playing     .hide_if_playing{  display:none;}
+body.is_start       .hide_if_start{    display:none;}
+body.is_game_over   .hide_if_game_over{display:none;}
+
+body                .show_if_highscore{display:none;}
+body.is_highscore   .show_if_highscore{display:block;}
+
+/* ///////////////////////////////////////////////////// */
+/* // Colours                                            */
+/* ///////////////////////////////////////////////////// */
+
+body.is_game_over{
     background-color: #ff6f47;
 }
-body.game_over .scores,         body.loaded .scores{         display: none;}
-body.game_over .loading_images, body.loaded .loading_images{ display: block;}
-body.game_over h1,              body.loaded h1{              display: block;}
-body.game_over .images,         body.loaded .images{         display: none;}
-body.game_over .buttons,        body.loaded .buttons{        display: none;}
-body.game_over .timing_bar,     body.loaded .timing_bar{     display: none;}
-body.game_over .start,          body.loaded .end{            display: none;}
-
-body.game_over .end,            body.loaded .start{          display: block;}
 
 .good_bg{
     background-color: #53ff47;
@@ -43,14 +102,9 @@ body.game_over .end,            body.loaded .start{          display: block;}
     background-color: #ff6f47;
 }
 
-.container{
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-}
+
+
+
 
 .timing_bar{
     height: 0%;
@@ -71,7 +125,6 @@ h1{
     transform: rotate(2deg);
     position: relative;
     z-index: 20;
-    display:none;
 }
 
 .scores{
@@ -86,16 +139,7 @@ h1{
     text-shadow: 5px 5px black;
     transform: rotate(-1deg);
 }
-@keyframes new_score_grow {
-    0% { 
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(9);
-        opacity: 0;
-    }
-}
+
 .new_score{
     position: absolute;
     font-weight: bold;
@@ -108,23 +152,10 @@ h1{
 }
 
 .loading_images{
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     z-index:10;
 }
 
-@keyframes fade_in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
+
 .loading_images .image{
     height: 150px;
     width: 110px;
@@ -191,7 +222,6 @@ h1{
 }
 
 .start{
-    display: none;
     text-align: center;
     transform: rotate(-2deg);
     margin-top: 140px;
@@ -207,7 +237,6 @@ h1{
 }
 
 .end{
-    display: none;
     text-align: center;
     transform: rotate(-2deg);
     margin-top: 150px;
@@ -219,16 +248,6 @@ h1{
     font-size: 2.7em;
     margin: 10px 0;
     text-shadow: 3px 3px black;
-}
-.end .button_play_again, .start .button_start, .end .button_add_highscore{
-    display: inline-block;
-    background: #fff;
-    padding: 7px 15px;
-    font-size: 2em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
 }
 .start .button_start{
     padding: 15px 25px;
@@ -268,11 +287,6 @@ h1{
 .end_highscore{
     display:none;
     background-color: #53ff47;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     z-index: 100;
     margin: 12px;
     color: #000;
@@ -326,14 +340,8 @@ body.display_highscore .end_highscore{
 
 }
 .play_again_panel .button_play_again{
-    display: inline-block;
-    background: #fff;
     padding: 9px 15px;
     font-size: 0.8em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
     transform: rotate(-2deg);
 }
 
