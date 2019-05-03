@@ -39,8 +39,8 @@
                     <a href="#play_start" id="button_start" class="butt button_start">Play now!</a>
                 </div>
                 <div class="start_menu">
-                    <a href="#show_highscore">See highscores</a>
-                    <a href="#credits">Who made this?</a>
+                    <a href="#show_highscore" id="show_highscore" class="butt see_highscores_button">See highscores</a>
+                    <a href="https://www.designedbycave.co.uk/" class="butt credits_button">Who made this?</a>
                 </div>
             </section>
             
@@ -63,15 +63,15 @@
                     <div class="actual_who_image" id="actual_who_image"></div>
                     <h2><span id="actual_who"></span></h2>
                     <h2>Score: <span class="final_score" id="final_score">0</span></h2>
-                    <a href="#play_again" id="button_play_again" class="butt button_play_again">Play again</a>
-                    <h2 class="hide_if_zero">or</h2>
-                    <a href="#show_highscore" id="button_add_highscore" class="butt button_add_highscore hide_if_zero">Add to highscore table!</a>
-                </div>
+                    <a href="#show_highscore" id="button_add_highscore" class="butt button_add_highscore hide_if_zero">Save to highscores!</a>
+                    <a href="#play_again" id="button_play_again" class="butt button_play_again">Play again</a>        
+                </div>            
             </section>
 
             <section id="highscore" class="highscore fullpage show_if_highscore">
+                <a href="#back" id="button_back" class="butt button_back">&lt;- Back</a>
                 <h1>You got: <span class="user_score" id="final_highscore">?</span></h1>
-                <div class="form_area">
+                <div class="form_area hide_if_playing hide_if_start">
                     <form method="post" action="https://scores.designedbycave.co.uk/a/iCPF6psu6iZULoMYKnZq/" id="score_form" class="score_form">
                         <input name="user" type="text" id="name" class="input_box" placeholder="Enter your name">
                         <input type="submit" id="submit" class="submit_button" value="Save!">

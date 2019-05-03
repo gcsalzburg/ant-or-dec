@@ -40,6 +40,10 @@ body{
     color: #000;
     font-weight: bold;  
 }
+.butt:focus, .butt:active{
+    background: #000;
+    color: #fff;
+}
 
 /* ///////////////////////////////////////////////////// */
 /* // Animations                                         */
@@ -104,11 +108,10 @@ h1{
     text-shadow: 5px 5px black;
     transform: rotate(2deg);
     position: relative;
-    z-index: 20;
 }
 
 .loading_images{
-    z-index:10;
+    z-index:-10;
 }
 .loading_images .image{
     height: 150px;
@@ -123,9 +126,8 @@ h1{
 .start_text{
     text-align: center;
     transform: rotate(-2deg);
-    margin-top: 140px;
+    margin-top: 90px;
     position: relative;
-    z-index: 50;
 }
 .start_text .button_start{
     padding: 15px 25px;
@@ -138,6 +140,22 @@ h1{
     margin-right: 25px;
 }
 
+.start_menu{
+    position: absolute;
+    bottom:10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.start_menu .butt{
+    font-size:0.8em;
+    margin: 0 3px;
+    transform: rotate(-1deg);
+}
+.start_menu .butt:nth-of-type(2){
+    transform: rotate(1deg);
+}
 
 /* ///////////////////////////////////////////////////// */
 /* // Playing screen                                     */
@@ -223,6 +241,13 @@ body.is_game_over{
     background-color: #ff6f47;
 }
 
+.end .button_play_again{
+    bottom: 20px;
+    margin-top: 65px;
+    font-size: 2.5em;
+    transform: rotate(5deg);
+}
+
 .end_text{
     text-align: center;
     transform: rotate(-2deg);
@@ -236,9 +261,11 @@ body.is_game_over{
     margin: 10px 0;
     text-shadow: 3px 3px black;
 }
-
 .end_text .button_add_highscore{
-    transform: rotate(4deg);
+    transform: rotate(-6deg);
+    right: 10px;
+    position: absolute;
+    font-size: 1.4em;
 }
 .end_text .image{
     height: 150px;
@@ -265,7 +292,7 @@ body.is_game_over{
     color: #B72900;
     opacity: 0.7;
 }
-.end_text.hide_highscore_submit .hide_if_zero{
+.end.hide_highscore_submit .hide_if_zero{
     display:none;
 }
 
@@ -284,6 +311,15 @@ body.is_highscore   .show_if_highscore{display:block;}
     color: #000;
     border: 10px solid #93FF8A;
     padding: 0px;
+    overflow: visible;
+}
+
+.button_back{
+    font-size:0.8em;
+    position: absolute;
+    left:-15px;
+    top:-15px;
+    transform: rotate(-5deg);
 }
 
 .highscore h1{

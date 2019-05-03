@@ -222,6 +222,9 @@ function show_highscore(){
     // Load highscore table
     fetch_scores();
 }
+function hide_highscore(){
+    removeClass(document.body,"is_highscore");
+}
 
 function send_score(){
 
@@ -236,6 +239,7 @@ function send_score(){
                 var json = JSON.parse(data);
                 if(!json.error){
                     addClass(document.getElementById('highscore'),"show_play_again");
+                    addClass(document.getElementById('end'),"hide_highscore_submit");
                     fetch_scores(parseInt(json.my_row));
                 }
             }catch{
@@ -275,9 +279,11 @@ function fetch_scores(my_row){
 // ///////////////////////////////////////////////////// //
 
 // UI buttons for start/restart
-attach_button_handler(button_start,start_game);
-attach_button_handler(button_play_again,start_game);
-attach_button_handler(button_play_again2,start_game);
+attach_button_handler(document.getElementById("button_start"),start_game);
+attach_button_handler(document.getElementById("button_play_again"),start_game);
+attach_button_handler(document.getElementById("button_play_again2"),start_game);
+attach_button_handler(document.getElementById("show_highscore"),show_highscore);
+attach_button_handler(document.getElementById("button_back"),hide_highscore);
 
 
 // UI buttons for antdec handling
