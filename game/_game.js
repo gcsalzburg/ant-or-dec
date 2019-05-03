@@ -88,7 +88,7 @@ function start_game() {
     
     // Reset HTML
     set_body_state("is_playing");
-    removeClass(document.getElementById('end_highscore'),"show_play_again");
+    removeClass(document.getElementById('highscore'),"show_play_again");
     removeClass(document.getElementById('end'),"hide_highscore_submit");
     el_score.innerHTML = score.points;
     el_loading_images.innerHTML = '';
@@ -235,7 +235,7 @@ function send_score(){
             try{
                 var json = JSON.parse(data);
                 if(!json.error){
-                    addClass(document.getElementById('end_highscore'),"show_play_again");
+                    addClass(document.getElementById('highscore'),"show_play_again");
                     fetch_scores(parseInt(json.my_row));
                 }
             }catch{

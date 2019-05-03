@@ -31,34 +31,45 @@
         <noscript>You need to enable Javascript to play this game!</noscript>
         <main class="container fullpage">
 
-            <div class="timing_bar" id="timing_bar" class="hide_if_start hide_if_playing"></div>
-            <section id="scores" class="scores hide_if_start hide_if_game_over">
-                <div id="my_score" class="score">0</div>
-                <div id="score_additions" class="score_additions"></div>
+            <section class="start fullpage hide_if_playing hide_if_game_over">
+                <section id="loading_images" class="loading_images fullpage"></section>
+                <h1>ANT or DEC</h1>
+                <div id="start" class="start_text">
+                    <h3 class="intro_text">Race the clock...<br>Is it Ant?<br>Is it Dec?</h3>
+                    <a href="#play_start" id="button_start" class="butt button_start">Play now!</a>
+                </div>
+                <div class="start_menu">
+                    <a href="#show_highscore">See highscores</a>
+                    <a href="#credits">Who made this?</a>
+                </div>
             </section>
-            <section id="loading_images" class="loading_images fullpage hide_if_playing hide_if_game_over"></section>
-            <section id="images" class="images hide_if_start hide_if_game_over"></section>
-            <section id="buttons" class="buttons hide_if_start hide_if_game_over">
-                <a href="#ant" id="button_ant" class="button button_ant">ANT ?</a>
-                <a href="#dec" id="button_dec" class="button button_dec">DEC ?</a>
-            </section>
-
-            <h1 class="hide_if_playing">ANT or DEC</h1>
-            <section id="start" class="start hide_if_playing hide_if_game_over">
-                <h3 class="intro_text">Race the clock...<br>Is it Ant?<br>Is it Dec?</h3>
-                <a href="#play_start" id="button_start" class="butt button_start">Play now!</a>
-            </section>
+            
+            <section class="playing fullpage hide_if_start hide_if_game_over">
+                    <div class="timing_bar" id="timing_bar" class="hide_if_start hide_if_playing"></div>
+                    <section id="scores" class="scores hide_if_start hide_if_game_over">
+                        <div id="my_score" class="score">0</div>
+                        <div id="score_additions" class="score_additions"></div>
+                    </section>
+                    <section id="images" class="images hide_if_start hide_if_game_over"></section>
+                    <section id="buttons" class="buttons hide_if_start hide_if_game_over">
+                        <a href="#ant" id="button_ant" class="button button_ant">ANT ?</a>
+                        <a href="#dec" id="button_dec" class="button button_dec">DEC ?</a>
+                    </section>
+                </section>
 
             <section id="end" class="end hide_if_start hide_if_playing">
-                <div class="actual_who_image" id="actual_who_image"></div>
-                <h2><span id="actual_who"></span></h2>
-                <h2>Score: <span class="final_score" id="final_score">0</span></h2>
-                <a href="#play_again" id="button_play_again" class="butt button_play_again">Play again</a>
-                <h2 class="hide_if_zero">or</h2>
-                <a href="#show_highscore" id="button_add_highscore" class="butt button_add_highscore hide_if_zero">Add to highscore table!</a>
+                <h1>ANT or DEC</h1>
+                <div class="end_text">
+                    <div class="actual_who_image" id="actual_who_image"></div>
+                    <h2><span id="actual_who"></span></h2>
+                    <h2>Score: <span class="final_score" id="final_score">0</span></h2>
+                    <a href="#play_again" id="button_play_again" class="butt button_play_again">Play again</a>
+                    <h2 class="hide_if_zero">or</h2>
+                    <a href="#show_highscore" id="button_add_highscore" class="butt button_add_highscore hide_if_zero">Add to highscore table!</a>
+                </div>
             </section>
 
-            <section id="end_highscore" class="end_highscore fullpage show_if_highscore">
+            <section id="highscore" class="highscore fullpage show_if_highscore">
                 <h1>You got: <span class="user_score" id="final_highscore">?</span></h1>
                 <div class="form_area">
                     <form method="post" action="https://scores.designedbycave.co.uk/a/iCPF6psu6iZULoMYKnZq/" id="score_form" class="score_form">
